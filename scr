@@ -1,3 +1,4 @@
 #!/bin/bash
 
+# opens the text editor of elementary os with the given argument
 scratch-text-editor $1
