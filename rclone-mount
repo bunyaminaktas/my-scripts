@@ -1,0 +1,23 @@
+#!/bin/bash
+
+rclone_mount_all () {
+	rclone mount OneDrive: ~/rclone/onedrive/ &
+	rclone mount Dropbox: ~/rclone/dropbox/ &
+	rclone mount GDrive: ~/rclone/GDrive/ &
+}
+
+fusermount_all () {
+	fusermount -u ~/rclone/onedrive/ &
+	fusermount -u ~/rclone/dropbox/ &
+	fusermount -u ~/rclone/GDrive/ &
+}
+
+case $1 in
+	"onedrive") rclone mount OneDrive: ~/rclone/onedrive/ &;;
+	"dropbox") rclone mount Dropbox: ~/rclone/dropbox/ &;;
+	"gdrive") rclone mount GDrive: ~/rclone/GDrive/ &;;
+	"all") rclone_mount_all ;;
+
+	"fusermount") fusermount_all ;;
+esac
+
