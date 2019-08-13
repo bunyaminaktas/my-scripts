@@ -4,20 +4,27 @@ rclone_mount_all () {
 	rclone mount OneDrive: ~/rclone/onedrive/ &
 	rclone mount Dropbox: ~/rclone/dropbox/ &
 	rclone mount GDrive: ~/rclone/GDrive/ &
+	rclone mount YandexDisk: ~/rclone/yandexdisk/ &
 }
 
 fusermount_all () {
 	fusermount -u ~/rclone/onedrive/ &
 	fusermount -u ~/rclone/dropbox/ &
 	fusermount -u ~/rclone/GDrive/ &
+	fusermount -u ~/rclone/yandexdisk/ &
 }
 
 case $1 in
 	"onedrive") rclone mount OneDrive: ~/rclone/onedrive/ &;;
 	"dropbox") rclone mount Dropbox: ~/rclone/dropbox/ &;;
 	"gdrive") rclone mount GDrive: ~/rclone/GDrive/ &;;
+	"yandexdisk") rclone mount YandexDisk: ~/rclone/yandexdisk/ &;;
 	"all") rclone_mount_all ;;
-
-	"fusermount") fusermount_all ;;
+	
+	"fonedrive") fusermount -u ~/rclone/onedrive/ &
+	"fdropbox") fusermount -u ~/rclone/dropbox/ &
+	"fgdrive") fusermount -u ~/rclone/GDrive/ &
+	"fyandexdisk") fusermount -u ~/rclone/yandexdisk/ &
+	"fall") fusermount_all ;;
 esac
 
