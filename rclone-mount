@@ -21,10 +21,14 @@ case $1 in
 	"yandexdisk") rclone mount YandexDisk: ~/rclone/yandexdisk/ &;;
 	"all") rclone_mount_all ;;
 	
+	"cryptbox") rclone mount CryptBox: ~/rclone/cryptbox/ &;;
+
 	"fonedrive") fusermount -u ~/rclone/onedrive/ &;;
 	"fdropbox") fusermount -u ~/rclone/dropbox/ &;;
 	"fgdrive") fusermount -u ~/rclone/GDrive/ &;;
 	"fyandexdisk") fusermount -u ~/rclone/yandexdisk/ &;;
 	"fall") fusermount_all ;;
+
+	"fcbox") fusermount -u ~/rclone/cryptbox/ &;; 
 esac
 
