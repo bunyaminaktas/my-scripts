@@ -1,0 +1,19 @@
+#!/bin/bash
+
+i=1
+x=$(nproc)
+echo "Number of CPU cores: $x"
+
+while [ $i -le $x ]
+do
+#	echo $i
+	i=$((i + 1))
+done
+
+a=$(nproc)
+while [ $a -ge 1 ]
+do
+	echo $a
+	a=$((a - 1))
+done
+

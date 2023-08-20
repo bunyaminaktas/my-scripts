@@ -1,0 +1,40 @@
+# This guide is about installation of Arch Linux with encrypted boot
+# Since only GRUB bootloader supports encrypted boot and it supports only LUKS1 format fully, the partition in which bootloader resides must be encrypted with LUKS1
+# But if latest LUKS version is desired for the rest of the system following steps must be followed. 
+# The steps are derived from Arch Linux Installation Guide and some inherent configurations will not be mentioned here. For detailed configurations you can visit https://wiki.archlinux.org/title/Installation_guide
+
+1 - When we come to the step in which disk partitioning is carried out, we partition disks as following:
+	#p1 unencrypted		- type: BIOS boot	-	format: 	-	size: >=1MB
+	#p2 unecnrypted		- type: EFI		-	format: FAT32	-	size: >=512MB
+	#p3 encrypted LUKS1	- type: Linux		-	format: ext4	-	size: >=512MB
+	#p4 encrypted LUKS2	- type: Linux		-	format: ext4	-	size: as much as you want
+
+	#In this example 'LVM on LUKS' partitioning method is used from Arch Linux Installation Guide. If you'll use another method you need to adapt this tutorial to that method.
+
+2 - #p4 will be partitioned according to the Installation Guide and will be mounted at /mnt. 
+
+3 - Then #p2 will be mounted at /mnt/efi. This mount point shall be used as efi directory in grub-install command.
+
+4 - #p3 will be mounted at /mnt/boot.
+
+5 - The installation is carried out then. 
+
+6 - All the configuration is performed on /etc/mkinitcpio.conf file for encrypted boot as explained in the Installation Guide (HOOKS).
+
+7 - In /etc/default/grub GRUB_ENABLE_CRYPTODISK line shall be uncommented.
+
+8 - Into the GRUB_CMDLINE_LINUX, 'cryptdevice=UUID="device-UUID":cryptlvm root=/dev/MyVolGroup/root' phrase must be inserted for the #p4 partition.
+
+9 - A crypto key file is needed to be created in order both to avoid double password entering and to mount #p3 - boot partition automatically. 
+
+10 - In order to avoid double password entering following phrase must be inserted in /etc/default/grub:
+	GRUB_CMD_LINE_LINUX="... cryptkey=rootfs:/root/cryptlvm.keyfile ..."
+
+11 - The path of this file must be added to /etc/mkinitcpio.conf FILES=() section, too. All these settings are explained in the Installation Guide.
+
+12 - Until this point we configured GRUB and mkinitcpio to be able to boot the system from an encrypted device. But GRUB decrypts #p4 and then looks for the boot partition, which it cannot find since it is not decrypted and mounted at the required mount point which is /boot. If you followed the Installation Guide correctly, /etc/fstab must be created as to mount #p3 at the correct mount point. But fstab needs the partition to be decrypted. That can be realized by /etc/crypttab file.
+
+13 - Following line must be appended to /etc/crypttab file:
+	name_given_for_crypted_boot_partition		UUID="#p3 uuid"		/root/cryptlvm.keyfile
+
+14 - Now, a LUKS2 formatted root system is ready to boot from a LUKS1 formatted partition.

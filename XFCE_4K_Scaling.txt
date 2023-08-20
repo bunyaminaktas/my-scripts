@@ -1,0 +1,9 @@
+In order to scale XFCE for 4K monitors following environmental variables must be adjusted either in /etc/profile file or in ~/.bashrc:
+	#export GDK_DPI_SCALE=1.75
+	#export GDK_SCALE=2
+	export QT_SCALE_FACTOR=1.3
+	export QT_FONT_DPI=120
+
+Go to Settings Manager > Appearance > Settings > Window Scaling and select 2 as the scaling factor.
+
+Go to Settings Manager > Appearance > Fonts > DPI > Custom DPI Setting: 82 for me.
