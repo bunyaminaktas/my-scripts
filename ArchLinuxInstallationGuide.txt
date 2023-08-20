@@ -5,7 +5,7 @@
 
 1 - When we come to the step in which disk partitioning is carried out, we partition disks as following:
 	#p1 unencrypted		- type: BIOS boot	-	format: 	-	size: >=1MB
-	#p2 unecnrypted		- type: EFI		-	format: FAT32	-	size: >=512MB
+	#p2 unencrypted		- type: EFI		-	format: FAT32	-	size: >=512MB
 	#p3 encrypted LUKS1	- type: Linux		-	format: ext4	-	size: >=512MB
 	#p4 encrypted LUKS2	- type: Linux		-	format: ext4	-	size: as much as you want
 
