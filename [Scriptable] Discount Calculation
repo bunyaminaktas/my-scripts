@@ -1,0 +1,16 @@
+const inflation = 0.07
+const instalment = 24
+const instalment_number = 12
+const entry_payment = 0
+
+const compounded_discount = (1 + inflation) ** instalment_number
+const var1 = 1 - (1 / compounded_discount)
+const var2 = var1 / inflation
+const result = var2 * instalment + entry_payment
+
+let textField = new Alert()
+textField.title = "Discounted Result:"
+textField.addAction("OK")
+
+
+console.log("Result: " + result)
