@@ -1,0 +1,19 @@
+1. Extend the LVM partition to fill the disk:
+    parted /dev/sda
+    (parted) print
+    (parted) resizepart 3 100%
+    (parted) quit
+    partprobe /dev/sda
+
+
+2. Extend the physical volume (PV):
+    pvresize /dev/sda3
+
+
+3. Verify available free space in the volume group:
+    vgdisplay
+
+
+4. Extend the logical volume for root:
+    lvextend -r -l +100%FREE /dev/mapper/ol-root
+    // The -r flag automatically runs xfs_growfs.
